@@ -12,10 +12,10 @@ public:
 	~SQLiteSaveTest();
 
 private:
-	SQLiteSave sql;
+	SQLiteSave* sql;
 
 private slots:
-	void case1_OpenNoExistentTable();
+	void case1_OpenInexistentTable();
 	void case2_OpenExistentTable();
 
 	// case 3 to 5 are interdependent
@@ -26,19 +26,20 @@ private slots:
 
 SQLiteSaveTest::SQLiteSaveTest()
 {
-
+	sql = new  SQLiteSave(this);
 }
 
 SQLiteSaveTest::~SQLiteSaveTest()
 {
+	delete sql;
 }
 
 /**
  * @brief Check the open and closure of tables.
  */
-void SQLiteSaveTest::case1_OpenNoExistentTable()
+void SQLiteSaveTest::case1_OpenInexistentTable()
 {
-	switch (sql.openTable("AutoTest"))
+	switch (sql->openTable("AutoTest"))
 	{
 	case SQLiteSave::Table_Created:
 		qInfo() << "Table " << "AutoTest" << " created.";
@@ -52,7 +53,7 @@ void SQLiteSaveTest::case1_OpenNoExistentTable()
 	default:
 		break;
 	}
-	switch (sql.deleteTable("AutoTest"))
+	switch (sql->deleteTable("AutoTest"))
 	{
 	case SQLiteSave::Table_Deleted:
 		qInfo() << "Table " << "AutoTest" << " deleted.";
@@ -73,7 +74,7 @@ void SQLiteSaveTest::case1_OpenNoExistentTable()
  */
 void SQLiteSaveTest::case2_OpenExistentTable()
 {
-	switch (sql.openTable("AutoTest"))
+	switch (sql->openTable("AutoTest"))
 	{
 	case SQLiteSave::Table_Created:
 		qInfo() << "Table " << "AutoTest" << " created.";
@@ -88,7 +89,7 @@ void SQLiteSaveTest::case2_OpenExistentTable()
 		break;
 	}
 
-	switch (sql.openTable("AutoTest"))
+	switch (sql->openTable("AutoTest"))
 	{
 	case SQLiteSave::Table_Created:
 		qFatal("Table AutoTest created.");
@@ -101,7 +102,7 @@ void SQLiteSaveTest::case2_OpenExistentTable()
 		break;
 	}
 
-	switch (sql.deleteTable("AutoTest"))
+	switch (sql->deleteTable("AutoTest"))
 	{
 	case SQLiteSave::Table_Deleted:
 		qDebug() << "Table " << "AutoTest" << " deleted.";
@@ -118,7 +119,7 @@ void SQLiteSaveTest::case2_OpenExistentTable()
 void SQLiteSaveTest::case3_AddColumn()
 {
 	QString tabName = "AutoTest";
-	switch (sql.openTable(tabName))
+	switch (sql->openTable(tabName))
 	{
 	case SQLiteSave::Table_Created:
 		qDebug("Table AutoTest created.");
@@ -131,7 +132,7 @@ void SQLiteSaveTest::case3_AddColumn()
 	}
 
 	QString colName = "Dummy";
-	switch(sql.addColum(colName, SQLiteSave::TEXT))
+	switch(sql->addColum(colName, SQLiteSave::TEXT))
 	{
 	case SQLiteSave::Colum_Added:
 		qDebug() << "Column " << colName << " added.";
@@ -151,7 +152,7 @@ void SQLiteSaveTest::case4_WriteRow()
 	QString colName = "Dummy";
 
 	row << "TestCell";
-	switch(sql.writeRow(row))
+	switch(sql->writeRow(row))
 	{
 	case SQLiteSave::Row_Written:
 		qDebug() << "Row written!";
@@ -168,14 +169,14 @@ void SQLiteSaveTest::case5_ReadRow()
 	QVector<QVariant> row;
 	QString colName = "Dummy";
 
-	row = sql.readRow(0);
+	row = sql->readRow(0);
 
 	if(row.at(0).toString() == "TestCell")
 		qInfo() << "Row read success!";
 	else
 		qFatal("Row read fail!");
 
-	switch (sql.deleteTable("AutoTest"))
+	switch (sql->deleteTable("AutoTest"))
 	{
 	case SQLiteSave::Table_Deleted:
 		qDebug() << "Table \"AutoTest\" deleted.";

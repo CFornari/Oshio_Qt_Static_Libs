@@ -63,18 +63,18 @@ public:
 	Status deleteTable(const QString &tabName);
 
 private:
-	QSqlTableModel* mTable;
-	QSqlDatabase mDatabase;
+	QSqlTableModel* _table;
+	QSqlDatabase _database;
 
-	QString mDbFullPath;
-	QDir mDbDir;
+	QString _dbFullPath;
+	QDir _dbDir;
 
 	// Auxiliar variables and functions
-	QSqlQuery mQuery;
-	QSqlRecord mRecord;
-	QVector<QVariant> mAuxVec;
+	QSqlQuery _query;
+	QSqlRecord _record;
+	QVector<QVariant> _auxVec;
 
-	QStringList mListColTypes;
+	QStringList _listColTypes;
 	QString _colTypeToString(const ColType &type);
 };
 
