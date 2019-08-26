@@ -6,6 +6,8 @@
 
 QT       -= gui
 
+QT       += network
+
 TARGET = EspUdp
 TEMPLATE = lib
 CONFIG += staticlib

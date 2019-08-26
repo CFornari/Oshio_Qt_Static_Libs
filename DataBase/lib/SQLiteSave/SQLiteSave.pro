@@ -29,8 +29,7 @@ SOURCES += \
 	sqlitesave.cpp
 
 HEADERS += \
-				sqlitesave.h \
-				sqlitesave_global.h
+				sqlitesave.h
 
 unix {
     target.path = /usr/lib

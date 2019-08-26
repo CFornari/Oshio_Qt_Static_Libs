@@ -1,9 +1,6 @@
 #ifndef SQLITESAVE_H
 #define SQLITESAVE_H
 
-#include <QtPlugin>
-
-#include <QHash>
 #include <QVariant>
 
 #include <QSqlDatabase>
@@ -16,9 +13,7 @@
 #include <QStandardPaths>
 #include <QDir>
 
-#include "sqlitesave_global.h"
-
-class SQLITESAVESHARED_EXPORT SQLiteSave : protected QObject
+class SQLiteSave : protected QObject
 {
 	Q_OBJECT
 public:

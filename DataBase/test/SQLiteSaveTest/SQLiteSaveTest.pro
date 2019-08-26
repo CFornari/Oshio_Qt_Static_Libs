@@ -8,6 +8,7 @@ TEMPLATE = app
 
 SOURCES +=  tst_sqlitesavetest.cpp
 
+
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../../lib/SQLiteSave/release/ -lSQLiteSave
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../../lib/SQLiteSave/debug/ -lSQLiteSave
 else:unix: LIBS += -L$$OUT_PWD/../../lib/SQLiteSave/ -lSQLiteSave
